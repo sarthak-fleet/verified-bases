@@ -32,14 +32,34 @@ type price struct {
 	displayName string // shown in admin emails / order rows
 }
 
-// priceTable maps "<slug>:<tier>" → price. Empty until you ship a Base.
-var priceTable = map[string]price{}
+// priceTable maps "<slug>:<tier>" → price. First Base: TinyGPT Specialist Starter.
+var priceTable = map[string]price{
+	"tinygpt-specialist-starter:use": {
+		amountCents: 2900,
+		displayName: "TinyGPT Specialist Starter — Use It",
+	},
+	"tinygpt-specialist-starter:own": {
+		amountCents: 9900,
+		displayName: "TinyGPT Specialist Starter — Own It",
+	},
+	"tinygpt-specialist-starter:remix": {
+		amountCents: 7900,
+		displayName: "TinyGPT Specialist Starter — Remix Run",
+	},
+	"tinygpt-specialist-starter:launch": {
+		amountCents: 19900,
+		displayName: "TinyGPT Specialist Starter — Launch Help",
+	},
+}
 
 // lookupPrice returns the price entry plus the per-environment Dodo product
 // ID. Product IDs come from env vars rather than hardcoded so we can keep
 // separate test/live IDs without code changes:
 //
-//   DODO_PRODUCT_your_base_slug_own = prod_abc123
+//   DODO_PRODUCT_tinygpt_specialist_starter_own = prod_abc123
+//   DODO_PRODUCT_tinygpt_specialist_starter_use = prod_def456
+//   DODO_PRODUCT_tinygpt_specialist_starter_remix = prod_ghi789
+//   DODO_PRODUCT_tinygpt_specialist_starter_launch = prod_jkl012
 //
 // Underscores replace `-` and `:` in the slug:tier key.
 func lookupPrice(slug, tier string) (price, bool) {

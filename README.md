@@ -13,8 +13,8 @@ verification, packaging, ownership, and a path to launch**.
 ```
 verified-bases/
 ├── docs/
-│   ├── PRD-full.md           — 35-section product spec
-│   └── PRD-distilled.md      — short version
+│   ├── PRD-full.md           — 35-section product spec (living)
+│   └── docs/archive/2026-06-20-prd-distilled-phase1-shipped.md — archived short spec
 ├── web/                      — Astro 5 + React 19 + Tailwind v4 (Cloudflare Pages)
 │   ├── src/
 │   │   ├── data/bases.ts            — catalogue (empty; copy-paste schema inside)

@@ -27,9 +27,11 @@ TURNSTILE_SECRET="1x0000000000000000000000000000000AA"
 DELIVERY_SECRET="dev_change_me_to_random_32_bytes"
 
 # Per-Base product IDs — one per (slug, tier) you want to actually charge for.
-# Example:
-# DODO_PRODUCT_csv_cleaner_mac_own="prod_test_REPLACE_ME"
-# DODO_PRODUCT_csv_cleaner_mac_use="prod_test_REPLACE_ME"
+# TinyGPT Specialist Starter (slug tinygpt-specialist-starter):
+# DODO_PRODUCT_tinygpt_specialist_starter_use="prod_test_REPLACE_ME"
+# DODO_PRODUCT_tinygpt_specialist_starter_own="prod_test_REPLACE_ME"
+# DODO_PRODUCT_tinygpt_specialist_starter_remix="prod_test_REPLACE_ME"
+# DODO_PRODUCT_tinygpt_specialist_starter_launch="prod_test_REPLACE_ME"
 
 # Per-Base R2 delivery keys — set ONCE per tier after `wrangler r2 object put`.
 # When unset, the buyer email tells them you'll deliver manually within 24h.

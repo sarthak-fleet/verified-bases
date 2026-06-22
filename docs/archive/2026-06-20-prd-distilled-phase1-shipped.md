@@ -1,5 +1,7 @@
 # PRD: Verified Software Bases
 
+**Status:** Phase 1 platform shipped (2026-06-20). Archived — living product spec remains in `docs/PRD-full.md`. First catalogue Base added: TinyGPT Specialist Starter.
+
 ## Concept
 
 A curated marketplace for working software Bases that users can preview, use, buy, own, remix, and launch.

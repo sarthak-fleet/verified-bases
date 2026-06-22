@@ -141,7 +141,117 @@ export const BADGE_META: Record<Badge, { label: string; tone: 'verified' | 'neut
  * Once you add a Base, also configure its pricing on the BE
  * (`api/handlers/prices.go`) and the per-tier Dodo product IDs.
  */
-export const BASES: Base[] = [];
+export const BASES: Base[] = [
+  {
+    slug: 'tinygpt-specialist-starter',
+    title: 'TinyGPT Specialist Starter',
+    category: 'creator-tool',
+    oneLiner: 'A verified Mac-first specialist package: eval harness, MLX export, prompt card, and a working browser playground to ship your first local LLM workflow.',
+    description:
+      'TinyGPT is a from-scratch LLM factory on Apple Silicon. This Base packages the first specialist starter path: a browser playground, native Mac CLI hooks, eval-gate fixtures, and the scaffolding to own a small domain-specific model workflow without renting tokens or cloud GPUs.',
+    previewUrl: 'https://tinygpt.sarthakagrawal.dev',
+    videoUrl: undefined,
+    does: [
+      'Ship a working browser playground and Mac CLI entrypoints for local inference',
+      'Include eval-gate fixtures and a specialist model-card template',
+      'Document MLX export, LoRA fine-tune, and serve paths for one specialist',
+      'Provide honest scope for tool-calling and grammar-constrained JSON flows',
+      'Bundle setup guides for Apple Silicon, Xcode toolchain, and local checkpoints',
+    ],
+    doesNotDo: [
+      'Not a hosted model API or multi-tenant SaaS',
+      'Not enterprise compliance, SOC 2, or team RBAC',
+      'Not guaranteed frontier parity on every benchmark out of the box',
+      'Not unlimited support for arbitrary model architectures',
+      'Not a turnkey App Store or cloud deploy without your own accounts',
+    ],
+    techStack: [
+      'Swift / MLX-Swift (native Mac)',
+      'TypeScript / WebGPU (browser playground)',
+      'Python (eval helpers)',
+      'Astro (optional marketing surface)',
+      'Local-first checkpoints (.tinygpt / .lora)',
+    ],
+    badges: [
+      'live-preview-verified',
+      'source-build-verified',
+      'remix-ready',
+      'local-first',
+      'commercial-use-allowed',
+      'no-external-api',
+    ],
+    limitations: [
+      'Requires Apple Silicon Mac for the native MLX path',
+      'Xcode 27+ Metal toolchain install is a one-time prerequisite',
+      'Large model downloads are buyer-managed (cache under ~/.cache/tinygpt)',
+      'Browser playground is research/demo scope, not production runtime',
+      'Specialist quality depends on your dataset and eval discipline',
+    ],
+    diy: {
+      prompt: 'hard',
+      debug: 'hard',
+      launch: 'medium',
+      selfBuildHours: '20–40 hours',
+      setupFromBase: '45–90 minutes',
+      aiOftenGetsWrong: [
+        'MLX vs PyTorch weight layout mismatches',
+        'Grammar-mask latency regressions on first-token paths',
+        'Eval-gate protocol drift between fixtures and live harness',
+        'Checkpoint packaging without tokenizer sidecars',
+        'Undocumented Apple Silicon toolchain prerequisites',
+      ],
+      whyBuy:
+        'You get a verified specialist starter with working previews, eval fixtures, and source ownership instead of debugging the first Mac-local LLM packaging pass from a blank prompt.',
+    },
+    alternatives: {
+      free: 'Clone TinyGPT from GitHub and follow the README if you want to tinker without the packaged specialist starter.',
+      paidSaas: 'Use a hosted inference API (OpenAI, Anthropic, Together) if you do not need local ownership or MLX workflows.',
+      promptYourself:
+        'If you only need a generic chat wrapper, prompt it yourself. This Base is for owning a Mac-first specialist pipeline with eval gates and export paths.',
+      bestIf:
+        'You want a verified local LLM starter with source code, honest limitations, and a path to remix or launch on your own Mac.',
+    },
+    tiers: [
+      {
+        key: 'preview',
+        label: 'Live preview',
+        price: 'Free',
+        includes: ['Browser playground access', 'Specialist scope doc', 'Eval methodology overview'],
+      },
+      {
+        key: 'use',
+        label: 'Use it',
+        price: '$29',
+        includes: ['Packaged specialist eval bundle', 'Prebuilt MLX export script', 'Usage guide'],
+        note: 'Downloadable workflow assets — no source repo access.',
+      },
+      {
+        key: 'own',
+        label: 'Own it',
+        price: '$99',
+        includes: ['GitHub source handoff', 'Commercial license', 'Setup + deploy guide', 'Specialist model-card template'],
+      },
+      {
+        key: 'remix',
+        label: 'Remix run',
+        price: '$79',
+        includes: ['One scoped customization pass', 'Branding/copy tweaks', 'Supported niche adapter'],
+        note: 'Scoped remix — not open-ended rewrites.',
+      },
+      {
+        key: 'launch',
+        label: 'Launch help',
+        price: '$199',
+        includes: ['Guided Mac setup', 'Checkpoint + env wiring', 'First eval-gate smoke', 'Launch checklist'],
+      },
+    ],
+    startingPrice: 29,
+    lastVerified: '2026-06-20',
+    creator: { name: 'Sarthak Agrawal', handle: 'sarthakagrawal927' },
+    license:
+      'Buyer owns their purchased copy. Modify and use commercially. No resale of unchanged source as a competing listing.',
+  },
+];
 
 export function basesByCategory(category: Category): Base[] {
   return BASES.filter(b => b.category === category);
