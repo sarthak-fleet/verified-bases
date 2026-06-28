@@ -1,6 +1,6 @@
 # verified-bases — PROJECT_STATUS
 
-Last updated: 2026-06-20
+Last updated: 2026-06-28
 
 ## Why/What
 
@@ -147,27 +147,26 @@ Cloudflare Worker (verified-bases-api) — Go/TinyGo
 ## Todo / Planned / Deferred / Blocked
 
 ### Planned
-1. **Provision Cloudflare resources** — D1 (`verified-bases-db`), KV (`RATELIMIT`), R2 (`verified-bases-delivery`), Turnstile site (production + localhost).
-2. **Register Dodo products** for TinyGPT Specialist Starter paid tiers; set `DODO_PRODUCT_*` Worker secrets and `DODO_API_KEY` / `DODO_WEBHOOK_SECRET`.
-3. **Deploy** — `cd api && make deploy`; `cd web && npm run build && npx wrangler pages deploy dist --project-name=verified-bases-web`; wire Pages→Worker service binding `API`.
-4. **Webhook registration** — add Dodo webhook URL pointing to `/api/webhook/dodo`; subscribe to payment/refund events.
-5. **End-to-end smoke** — collab form → checkout test mode → webhook → order row in D1 → Resend email → refund path.
-6. **R2 delivery** — upload Use/Own tier artifacts; set `DODO_DELIVERY_*` secrets for instant signed download in success email (else manual fulfillment runbook).
+1. **Register Dodo products** for TinyGPT Specialist Starter paid tiers; set `DODO_PRODUCT_*` Worker secrets and `DODO_API_KEY` / `DODO_WEBHOOK_SECRET` (operator action — requires Dodo account).
+2. **Webhook registration** — add Dodo webhook URL pointing to `/api/webhook/dodo`; subscribe to payment/refund events (operator action).
+3. **End-to-end smoke** — collab form → checkout test mode → webhook → order row in D1 → Resend email → refund path (requires Dodo + Resend secrets).
+4. **R2 delivery** — upload Use/Own tier artifacts; set `DODO_DELIVERY_*` secrets for instant signed download in success email (else manual fulfillment runbook).
+5. **DNS** — wire `bases.sarthakagrawal.dev` custom domain to Pages project (operator action).
 
 ### Pre-launch checklist
-- [ ] `npx wrangler login`
-- [ ] Create D1 → paste `database_id` into `api/wrangler.jsonc`
-- [ ] `make migrate-remote`
-- [ ] Create KV namespace → paste id into `wrangler.jsonc`
-- [ ] Create R2 bucket `verified-bases-delivery`
-- [ ] Create Turnstile site → `TURNSTILE_SECRET` (Worker) + `PUBLIC_TURNSTILE_SITE_KEY` (Pages)
+- [x] `npx wrangler login`
+- [x] Create D1 → paste `database_id` into `api/wrangler.jsonc`
+- [x] `make migrate-remote` (migrations 0001 + 0002 applied 2026-06-28)
+- [x] Create KV namespace → paste id into `wrangler.jsonc`
+- [x] Create R2 bucket `verified-bases-delivery`
+- [x] Create Turnstile site → `TURNSTILE_SECRET` (Worker) + `PUBLIC_TURNSTILE_SITE_KEY` (Pages)
 - [ ] `wrangler secret put DODO_API_KEY`
 - [ ] `wrangler secret put DODO_WEBHOOK_SECRET`
 - [ ] `wrangler secret put RESEND_API_KEY`
-- [ ] `wrangler secret put DELIVERY_SECRET` (`openssl rand -hex 32`)
+- [x] `wrangler secret put DELIVERY_SECRET` (`openssl rand -hex 32`)
 - [ ] Register 4 Dodo products (use/own/remix/launch) → set `DODO_PRODUCT_tinygpt_specialist_starter_*` secrets
-- [ ] `make deploy` (api) + Pages deploy (web)
-- [ ] Wire service binding `API` on Pages project
+- [x] `make deploy` (api) + Pages deploy (web)
+- [x] Wire service binding `API` on Pages project
 - [ ] Register Dodo webhook URL
 - [ ] Test checkout in Dodo test mode → verify D1 `orders` row + email
 - [ ] Upload R2 deliverables + optional `DODO_DELIVERY_*` secrets
@@ -180,7 +179,7 @@ Cloudflare Worker (verified-bases-api) — Go/TinyGo
 - Automated remix pipeline — Phase 1 remix is scoped manual pass.
 
 ### Blocked / Known gaps
-- **No paid order has completed yet** — Dodo + Cloudflare provisioning is the ops-only blocker.
+- **No paid order has completed yet** — Dodo product registration + API keys are the ops-only blocker. Cloudflare provisioning (D1, KV, R2, Turnstile, Worker, Pages, service binding, migrations) is done.
 - Tiers without `DODO_PRODUCT_*` secrets correctly fall back to intent capture — buyers see "Captured. We'll email within 24h" (by design for curated launch).
 - R2 auto-delivery not configured — first paid orders may require manual fulfillment until `DODO_DELIVERY_*` and artifact uploads land.
 - `DEPLOY.md` references target domain `bases.sarthakagrawal.dev` — DNS/custom domain wiring is operator step.
